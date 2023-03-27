@@ -5,14 +5,14 @@ import subprocess as sp
 import sys
 from typing import NoReturn
 
-from main.constants import SOFTWARE_VER, TMP_DIR, OUTPUT_DIR
+from main.constants import SOFTWARE_VER, SOFTWARE_NAME, TMP_DIR, OUTPUT_DIR
 
 
 if (len(os.listdir(TMP_DIR)) != 1) and (os.listdir(TMP_DIR)[0] == '.gitkeep'):
     raise AssertionError('Directory "tmp" is not clean.')
 
 
-parser = argparse.ArgumentParser(description='Multilayered Noise Generation with FFmpeg')
+parser = argparse.ArgumentParser(prog=SOFTWARE_NAME, description='Multilayered Noise Generation with FFmpeg')
 parser.add_argument('--version', action='version', version=f'%(prog)s {SOFTWARE_VER}')
 
 parser.add_argument('-d', '--duration', default=60, type=float, help='Track length in seconds (default: 60)')
