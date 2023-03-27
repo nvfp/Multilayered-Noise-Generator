@@ -1,5 +1,9 @@
 
 
 __pycache__/
+
 output/*
+!output/.gitkeep
+
 tmp/*
+!tmp/.gitkeep
