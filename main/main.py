@@ -8,8 +8,8 @@ from typing import NoReturn
 from main.constants import SOFTWARE_VER, TMP_DIR, OUTPUT_DIR
 
 
-if len(os.listdir(TMP_DIR)) != 0:
-    raise AssertionError('Directory "tmp" is not empty.')
+if (len(os.listdir(TMP_DIR)) != 1) and (os.listdir(TMP_DIR)[0] == '.gitkeep'):
+    raise AssertionError('Directory "tmp" is not clean.')
 
 
 parser = argparse.ArgumentParser(description='Multilayered Noise Generation with FFmpeg')
