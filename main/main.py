@@ -92,10 +92,8 @@ else:
     output_dir = args.output
 
 ## constructing output filename
-output_filename = f'{COLOR} noise {NLAYER}-layer {HIGHPASS}-{LOWPASS}hz ({VOLUME}x).m4a'
+output_filename = f'{COLOR} noise ({NLAYER}-layer {HIGHPASS}-{LOWPASS}hz {VOLUME}x) {datetime.datetime.now().strftime("%Y%m%d_%H%M%S")}.m4a'
 output_file_pth = os.path.join(output_dir, output_filename)
-if os.path.exists(output_file_pth):
-    error(f'Similar output file "{output_filename}" exists. Move or delete the existing file to create a new one.')
 
 
 def main() -> None:
