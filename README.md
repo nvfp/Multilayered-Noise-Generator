@@ -26,7 +26,7 @@ This command will generate one hour of deep white noise that may help promote re
 * `-o`: Output folder path (default: multilayered_noise_generator/output)
 
 ## Learn more
-To learn about the FFmpeg aspect, visit this [webpage](https://nvfp.github.io/learning/ffmpeg#multilayered_noise_generator) for more information.
+To learn about the FFmpeg aspect, visit this [webpage](https://nvfp.github.io/learning/ffmpeg/index.html#multilayered_noise_generator) for more information.
 
 ## License
 This project is licensed under the MIT license.
