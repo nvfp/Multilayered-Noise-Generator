@@ -18,11 +18,11 @@ parser.add_argument('--version', action='version', version=f'%(prog)s {SOFTWARE_
 parser.add_argument('-d', '--duration', default=60, type=float, help='Track length in seconds (default: 60)')
 parser.add_argument('-c', '--color', default='brown', help='Noise color options: white, pink, brown, blue, violet, and velvet (default: brown).')
 parser.add_argument('-n', '--nlayer', default=7, type=int, help='Number of layers (default: 7)')
-parser.add_argument('-hp', '--highpass', default=20, type=int, help='Default highpass value is 20.')
-parser.add_argument('-lp', '--lowpass', default=432, type=int, help='Default lowpass value is 432.')
+parser.add_argument('-hp', '--highpass', default=20, type=int, help='Highpass frequency value (default: 20 Hz)')
+parser.add_argument('-lp', '--lowpass', default=432, type=int, help='Lowpass frequency value (default: 432 Hz)')
 parser.add_argument('-vol', '--volume', type=int, help='Number of volume folds, defaults to the number of layers.')
-parser.add_argument('-ff', '--ffmpeg', default='ffmpeg', help='FFmpeg binary file path. Default is \'ffmpeg\'.')
-parser.add_argument('-o', '--output', help=f'Output folder path. Default is {OUTPUT_DIR}')
+parser.add_argument('-ff', '--ffmpeg', default='ffmpeg', help='FFmpeg binary file path or command (default: \'ffmpeg\')')
+parser.add_argument('-o', '--output', help=f'Output folder path, default is {OUTPUT_DIR}')
 
 args = parser.parse_args()
 
