@@ -41,7 +41,7 @@ To learn about the FFmpeg aspect, visit this [webpage](https://nvfp.github.io/le
     ```sh
     python multilayered_noise_generator -ff ~/ffmpeg/bin/ffmpeg.exe
     ```
-By following these steps, you should be able to resolve the FFmpeg-related error and use `multilayered_noise_generator` as intended.
+By trying these solutions, you should be able to resolve the problem.
 
 ## License
 This project is licensed under the MIT license.
