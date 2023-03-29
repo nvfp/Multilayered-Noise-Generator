@@ -1,5 +1,5 @@
 ## Multilayered-Noise-Generator
-This program generates multilayered deep noise using the FFmpeg noise generator. It can create brown noise, white noise, and other types of noise that are known to help some people relax and promote a focused ambiance.
+This program generates multilayered deep audio noise using the FFmpeg audio source "anoisesrc" to generate the noise. It can create brown noise, white noise, and other types of noise that are known to help some people relax and promote a focused ambiance.
 
 ## Installation
 1. Download this repository and save it to your machine (e.g. ~/myproject/multilayered_noise_generator).
