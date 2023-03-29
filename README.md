@@ -37,6 +37,7 @@ To learn about the FFmpeg aspect, visit this [webpage](https://nvfp.github.io/le
 - Ensure that FFmpeg is installed on your machine and is accessible as a command in the shell.
 - If FFmpeg is installed but not accessible, add its location to your system's PATH variable.
 - Alternatively, you can reference the FFmpeg binary using the `-ff` flag when running the `multilayered_noise_generator` command. For example:
+
     ```sh
     python multilayered_noise_generator -ff ~/ffmpeg/bin/ffmpeg.exe
     ```
