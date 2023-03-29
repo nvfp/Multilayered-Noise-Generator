@@ -1,8 +1,12 @@
 ## Multilayered-Noise-Generator
 This program generates multilayered deep noise using the FFmpeg noise generator. It can create brown noise, white noise, and other types of noise that are known to help some people relax and promote a focused ambiance.
 
-## Usage
+## Installation
+1. Download this repository and save it to your machine (e.g. ~/myproject/multilayered_noise_generator).
+2. Install [FFmpeg](https://ffmpeg.org/download.html) on your machine, if it is not already installed.
+3. You're all set and ready to use!
 
+## Usage
 ### Try running the following:
 ```sh
 python multilayered_noise_generator
@@ -27,6 +31,16 @@ This command will generate one hour of deep white noise that may help promote re
 
 ## Learn more
 To learn about the FFmpeg aspect, visit this [webpage](https://nvfp.github.io/learning/ffmpeg/index.html#multilayered_noise_generator) for more information.
+
+## Troubleshooting
+### If you encounter the error message "multilayered_noise_generator: error: ffmpeg not found or not a recognized command (ffmpeg)", try the following steps:
+- Ensure that FFmpeg is installed on your machine and is accessible as a command in the shell.
+- If FFmpeg is installed but not accessible, add its location to your system's PATH variable.
+- Alternatively, you can reference the FFmpeg binary using the `-ff` flag when running the `multilayered_noise_generator` command. For example:
+```sh
+python multilayered_noise_generator -ff ~/ffmpeg/bin/ffmpeg.exe
+```
+By following these steps, you should be able to resolve the FFmpeg-related error and use `multilayered_noise_generator` as intended.
 
 ## License
 This project is licensed under the MIT license.

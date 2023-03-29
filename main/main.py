@@ -76,7 +76,7 @@ else:
 FFMPEG = args.ffmpeg
 if FFMPEG != 'ffmpeg':
     if not (os.path.isfile(FFMPEG) and os.path.splitext(FFMPEG.lower())[1] == '.exe'):
-        error('Error: FFMPEG path is invalid or does not point to an ffmpeg executable.')
+        error('FFMPEG path is invalid or does not point to an ffmpeg executable.')
 try:
     sp.run([FFMPEG, '-version'], stdout=sp.DEVNULL, stderr=sp.DEVNULL)
     printer(f'INFO: ffmpeg valid and usable.')
