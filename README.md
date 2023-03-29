@@ -33,13 +33,13 @@ This command will generate one hour of deep white noise that may help promote re
 To learn about the FFmpeg aspect, visit this [webpage](https://nvfp.github.io/learning/ffmpeg/index.html#multilayered_noise_generator) for more information.
 
 ## Troubleshooting
-### If you encounter the error message "multilayered_noise_generator: error: ffmpeg not found or not a recognized command (ffmpeg)", try the following steps:
+#### If you encounter the error message "multilayered_noise_generator: error: ffmpeg not found or not a recognized command (ffmpeg)", try the following steps:
 - Ensure that FFmpeg is installed on your machine and is accessible as a command in the shell.
 - If FFmpeg is installed but not accessible, add its location to your system's PATH variable.
 - Alternatively, you can reference the FFmpeg binary using the `-ff` flag when running the `multilayered_noise_generator` command. For example:
-```sh
-python multilayered_noise_generator -ff ~/ffmpeg/bin/ffmpeg.exe
-```
+    ```sh
+    python multilayered_noise_generator -ff ~/ffmpeg/bin/ffmpeg.exe
+    ```
 By following these steps, you should be able to resolve the FFmpeg-related error and use `multilayered_noise_generator` as intended.
 
 ## License
