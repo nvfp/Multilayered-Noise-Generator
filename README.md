@@ -30,7 +30,7 @@ This command will generate one hour of deep white noise that may help promote re
 * `-o`: Output folder path (default: multilayered_noise_generator/output)
 
 ## Learn more
-To learn about the FFmpeg aspect, visit this [webpage](https://nvfp.github.io/learning/ffmpeg/index.html#multilayered_noise_generator) for more information.
+To learn about the FFmpeg aspect, visit this [webpage](https://nvfp.github.io/misc/ffmpeg/index.html#multilayered_noise_generator) for more information.
 
 ## Troubleshooting
 #### If you encounter the error message "multilayered_noise_generator: error: ffmpeg not found or not a recognized command (ffmpeg)", consider the following:
