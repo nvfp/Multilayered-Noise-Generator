@@ -25,6 +25,13 @@ python multilayered_noise_generator -d 3600 -c white -n 15 -lp 300
 ```
 This command will generate one hour of deep white noise that may help promote relaxation, improve concentration, and aid in sleep.
 
+### Using dynamic volume:
+```sh
+python multilayered_noise_generator -d 600 -c velvet -n 3 -dv
+```
+This command launches a GUI for setting the noise pattern that dynamically adjusts the volume, creating a captivating ambience.
+![Dynamic volume demo gif](media/dv-demo.gif)
+
 ### Here are the available command line options for customizing the generated noise:
 * `-d`: Track length in seconds (default: 60)
 * `-c`: Noise color options: white, pink, brown, blue, violet, and velvet (default: brown)
@@ -32,6 +39,7 @@ This command will generate one hour of deep white noise that may help promote re
 * `-hp`: Highpass frequency value (default: 20 Hz)
 * `-lp`: Lowpass frequency value (default: 432 Hz)
 * `-vol`: Number of volume folds (default: number of layers)
+* `-dv`: Open GUI to set dynamic volume using Perlin noise
 * `-ff`: FFmpeg binary file path or command (default: 'ffmpeg')
 * `-o`: Output folder path (default: multilayered_noise_generator/output)
 
@@ -50,8 +58,8 @@ To learn about the FFmpeg aspect, visit this [webpage](https://nvfp.github.io/mi
 By trying these solutions, you should be able to resolve the problem.
 
 ## Changelog
-- 1.1.0 (May 5, 2023):
-    - added volume-randomizer
+- 1.1.0 (May 6, 2023):
+    - added volume-randomizer using Perlin noise
     - changed the output filename format
 
 ## License

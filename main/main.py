@@ -24,7 +24,7 @@ parser.add_argument('-lp', '--lowpass', default=432, type=int, help='Lowpass fre
 parser.add_argument('-vol', '--volume', type=int, help='Number of volume folds, defaults to the number of layers.')
 parser.add_argument(
     '-dv', '--dyn_vol', action=argparse.BooleanOptionalAction, default=False,
-    help='Dynamic volume with Perlin noise.'
+    help='Open GUI to set dynamic volume using Perlin noise.'
 )
 parser.add_argument('-ff', '--ffmpeg', default='ffmpeg', help='FFmpeg binary file path or command (default: \'ffmpeg\')')
 parser.add_argument('-o', '--output', help=f'Output folder path, default is {OUTPUT_DIR}')
