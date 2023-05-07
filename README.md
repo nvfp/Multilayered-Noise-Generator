@@ -3,8 +3,14 @@ This program generates multilayered deep audio noise using the FFmpeg audio sour
 
 ## Installation
 1. Download this repository and save it to your machine (e.g. ~/myproject/multilayered_noise_generator).
-2. Install [FFmpeg](https://ffmpeg.org/download.html) on your machine, if it is not already installed.
-3. You're all set and ready to use!
+2. Install dependencies:
+    - [carbon](https://github.com/nvfp/carbon)
+    - NumPy:
+        ```sh
+        pip install -r requirements.txt
+        ```
+    - [FFmpeg](https://ffmpeg.org/download.html)
+3. All set and ready to use!
 
 ## Usage
 ### Try running the following:
@@ -42,6 +48,11 @@ To learn about the FFmpeg aspect, visit this [webpage](https://nvfp.github.io/mi
     python multilayered_noise_generator -ff ~/ffmpeg/bin/ffmpeg.exe
     ```
 By trying these solutions, you should be able to resolve the problem.
+
+## Changelog
+- 1.1.0 (May 5, 2023):
+    - added volume-randomizer
+    - changed the output filename format
 
 ## License
 This project is licensed under the MIT license.

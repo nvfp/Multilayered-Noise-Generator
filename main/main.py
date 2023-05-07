@@ -6,6 +6,7 @@ import sys
 from typing import NoReturn
 
 from main.constants import SOFTWARE_VER, SOFTWARE_NAME, TMP_DIR, OUTPUT_DIR
+from main.dyn_vol import dyn_vol
 
 
 if (len(os.listdir(TMP_DIR)) != 1) and (os.listdir(TMP_DIR)[0] == '.gitkeep'):
@@ -21,6 +22,10 @@ parser.add_argument('-n', '--nlayer', default=7, type=int, help='Number of layer
 parser.add_argument('-hp', '--highpass', default=20, type=int, help='Highpass frequency value (default: 20 Hz)')
 parser.add_argument('-lp', '--lowpass', default=432, type=int, help='Lowpass frequency value (default: 432 Hz)')
 parser.add_argument('-vol', '--volume', type=int, help='Number of volume folds, defaults to the number of layers.')
+parser.add_argument(
+    '-dv', '--dyn_vol', action=argparse.BooleanOptionalAction, default=False,
+    help='Dynamic volume with Perlin noise.'
+)
 parser.add_argument('-ff', '--ffmpeg', default='ffmpeg', help='FFmpeg binary file path or command (default: \'ffmpeg\')')
 parser.add_argument('-o', '--output', help=f'Output folder path, default is {OUTPUT_DIR}')
 
@@ -92,8 +97,11 @@ else:
     output_dir = args.output
 
 ## constructing output filename
-output_filename = f'{COLOR} noise ({NLAYER}-layer {HIGHPASS}-{LOWPASS}hz {VOLUME}x) {datetime.datetime.now().strftime("%Y%m%d_%H%M%S")}.m4a'
+output_filename = f'noise-{COLOR} ({NLAYER}-layer {HIGHPASS}-{LOWPASS}hz {VOLUME}x) {datetime.datetime.now().strftime("%Y%m%d_%H%M%S")}.m4a'
 output_file_pth = os.path.join(output_dir, output_filename)
+## the code below isn't necessary because it's very unlikely to happen
+# if os.path.exists(output_file_pth):
+#     raise FileExistsError(f'Output file conflict: {output_file_pth}')
 
 
 def main() -> None:
@@ -104,12 +112,21 @@ def main() -> None:
             printer('Exiting...')
             sys.exit(1)
 
+
+    ## dynamic volume
+    dyn_vol_filter = ''
+    if args.dyn_vol:
+        printer('INFO: opening dyn_vol GUI..')
+        dyn_vol_filter = dyn_vol(DUR)
+        printer('INFO: dyn_vol_filter generated.')
+
+
     ## generating the base noise
     base_noise_paths = []
     printer('Creating base noises..')
     for i in range(NLAYER):
         pth = os.path.join(TMP_DIR, f'base_noise_{str(i).zfill(3)}.m4a')
-        sp.call([FFMPEG, '-v', 'error', '-f', 'lavfi', '-i', f'anoisesrc=d={DUR}:c={COLOR}', pth])
+        sp.call([FFMPEG, '-v', 'error', '-stats', '-f', 'lavfi', '-i', f'anoisesrc=d={DUR}:c={COLOR}', pth])
         base_noise_paths.append(pth)
         printer(f'Created base noise [{i+1}/{NLAYER}]: {pth}')
 
@@ -120,9 +137,9 @@ def main() -> None:
     printer('Generating the output...')
     sp.call([
         FFMPEG,
-        '-v', 'error',
+        '-v', 'error', '-stats',
         *input_cmd,
-        '-filter_complex', f'amix=inputs={NLAYER},highpass=f={HIGHPASS},lowpass=f={LOWPASS},volume={VOLUME}',
+        '-filter_complex', f'amix=inputs={NLAYER},highpass=f={HIGHPASS},lowpass=f={LOWPASS},volume={VOLUME}{dyn_vol_filter}',
         output_file_pth
     ])
 
