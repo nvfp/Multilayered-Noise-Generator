@@ -29,7 +29,7 @@ This command will generate one hour of deep white noise that may help promote re
 ```sh
 python multilayered_noise_generator -d 600 -c velvet -n 3 -dv
 ```
-This command launches a GUI for setting the noise pattern that dynamically adjusts the volume, creating a captivating ambience.
+This command launches the GUI for setting the noise pattern that dynamically adjusts the volume, creating a captivating ambience.
 ![Dynamic volume demo gif](media/dv-demo.gif)
 
 ### Here are the available command line options for customizing the generated noise:

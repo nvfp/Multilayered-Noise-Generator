@@ -87,7 +87,7 @@ def dyn_vol(DUR):
     Slider(
         id='nchanges',
         min=3,
-        max=max(50, int(DUR/7)),  # If the `nchanges` is too big, the command won't work.
+        max=max(50, int(DUR/4)),  # If the `nchanges` is too big, the command won't work.
         step=1,
         init=Rt.nchanges,
         x=X,
@@ -111,7 +111,7 @@ def dyn_vol(DUR):
     Slider(
         id='vol_max',
         min=1,
-        max=2,
+        max=3,
         step=0.01,
         init=Rt.vol_max,
         x=X,
