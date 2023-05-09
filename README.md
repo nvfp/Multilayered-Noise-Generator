@@ -39,12 +39,13 @@ This command launches the GUI for setting the noise pattern that dynamically adj
 * `-hp`: Highpass frequency value (default: 20 Hz)
 * `-lp`: Lowpass frequency value (default: 432 Hz)
 * `-vol`: Number of volume folds (default: number of layers)
-* `-dv`: Open GUI to set dynamic volume using Perlin noise
+* `-dv`: Use dynamic volume (using Perlin noise) and open the GUI to set the dynamic volume parameters (default: False)
 * `-ff`: FFmpeg binary file path or command (default: 'ffmpeg')
 * `-o`: Output folder path (default: multilayered_noise_generator/output)
+* `-pm`: Print audio metadata (default: False)
 
 ## Learn more
-To learn about the FFmpeg aspect, visit this [webpage](https://nvfp.github.io/misc/ffmpeg/index.html#multilayered_noise_generator) for more information.
+To learn about the FFmpeg side, visit this [webpage](https://nvfp.github.io/misc/ffmpeg/index.html#multilayered_noise_generator) for more information.
 
 ## Troubleshooting
 #### If you encounter the error message "multilayered_noise_generator: error: ffmpeg not found or not a recognized command (ffmpeg)", consider the following:
@@ -58,6 +59,9 @@ To learn about the FFmpeg aspect, visit this [webpage](https://nvfp.github.io/mi
 By trying these solutions, you should be able to resolve the problem.
 
 ## Changelog
+- 1.2.0 (May 9, 2023):
+    - Bug fixed: The `seed` option is now used on the `anoisesrc` filter to ensure uniqueness of each noise
+    - Added `print_metadata` argument
 - 1.1.0 (May 6, 2023):
     - added volume-randomizer using Perlin noise
     - changed the output filename format

@@ -3,6 +3,7 @@ import datetime
 import os
 import subprocess as sp
 import sys
+import time
 from typing import NoReturn
 
 from main.constants import SOFTWARE_VER, SOFTWARE_NAME, TMP_DIR, OUTPUT_DIR
@@ -24,10 +25,14 @@ parser.add_argument('-lp', '--lowpass', default=432, type=int, help='Lowpass fre
 parser.add_argument('-vol', '--volume', type=int, help='Number of volume folds, defaults to the number of layers.')
 parser.add_argument(
     '-dv', '--dyn_vol', action=argparse.BooleanOptionalAction, default=False,
-    help='Open GUI to set dynamic volume using Perlin noise.'
+    help='Use dynamic volume (using Perlin noise) and open the GUI to set the dynamic volume parameters.'
 )
 parser.add_argument('-ff', '--ffmpeg', default='ffmpeg', help='FFmpeg binary file path or command (default: \'ffmpeg\')')
 parser.add_argument('-o', '--output', help=f'Output folder path, default is {OUTPUT_DIR}')
+parser.add_argument(
+    '-pm', '--print_metadata', action=argparse.BooleanOptionalAction, default=False,
+    help='Print audio metadata.'
+)
 
 args = parser.parse_args()
 
@@ -117,7 +122,7 @@ def main() -> None:
     dyn_vol_filter = ''
     if args.dyn_vol:
         printer('INFO: opening dyn_vol GUI..')
-        dyn_vol_filter = dyn_vol(DUR)
+        dyn_vol_filter, dyn_vol_filter_metadata = dyn_vol(DUR)
         printer('INFO: dyn_vol_filter generated.')
 
 
@@ -126,7 +131,7 @@ def main() -> None:
     printer('Creating base noises..')
     for i in range(NLAYER):
         pth = os.path.join(TMP_DIR, f'base_noise_{str(i).zfill(3)}.m4a')
-        sp.call([FFMPEG, '-v', 'error', '-stats', '-f', 'lavfi', '-i', f'anoisesrc=d={DUR}:c={COLOR}', pth])
+        sp.call([FFMPEG, '-v', 'error', '-stats', '-f', 'lavfi', '-i', f'anoisesrc=d={DUR}:c={COLOR}:s={time.time()}', pth])
         base_noise_paths.append(pth)
         printer(f'Created base noise [{i+1}/{NLAYER}]: {pth}')
 
@@ -149,3 +154,40 @@ def main() -> None:
         os.remove(pth)
 
     printer(f'File successfully created at: {output_file_pth}')
+
+    
+    if args.print_metadata:
+        md = (
+            '\n'
+            '===================================================='
+            '\n'
+            'Audio metadata:\n'
+            f'- Software version: {SOFTWARE_VER}\n'
+            f'- Created on: {datetime.datetime.now().strftime("%b %#d %Y, %#I:%M %p")}\n'
+            f'- Duration: {DUR} secs\n'
+            f'- Color: {COLOR}\n'
+            f'- Number of layers: {NLAYER}\n'
+            f'- Highpass: {HIGHPASS} hz\n'
+            f'- Lowpass: {LOWPASS} hz\n'
+            f'- Volume: {VOLUME}x\n'
+            f'- Using dynamic volume: {args.dyn_vol}'
+        )
+        if args.dyn_vol:
+            md += (
+                '\n'
+                f'  - Number of changes: {dyn_vol_filter_metadata["nchanges"]} transitions\n'
+                f'  - Min volume: {dyn_vol_filter_metadata["vol_min"]}x\n'
+                f'  - Max volume: {dyn_vol_filter_metadata["vol_max"]}x\n'
+                f'  - Perlin noise persistence: {dyn_vol_filter_metadata["persistence"]}\n'
+                f'  - Perlin noise octaves: {dyn_vol_filter_metadata["octaves"]}\n'
+                f'  - Perlin noise frequency: {dyn_vol_filter_metadata["frequency"]}\n'
+                f'  - Perlin noise seed: {dyn_vol_filter_metadata["seed"]}'
+            )
+        md += (
+            '\n\n'
+            'Software source code:\n'
+            'https://github.com/nvfp/Multilayered-Noise-Generator'
+            '\n'
+            '===================================================='
+        )
+        print(md)

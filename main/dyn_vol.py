@@ -226,4 +226,15 @@ def dyn_vol(DUR):
     root.bind('<Escape>', lambda e: root.destroy())
     root.mainloop()
 
-    return f',{Rt.filter}'
+    return (
+        f',{Rt.filter}',
+        {
+            'nchanges': Rt.nchanges,
+            'vol_min': Rt.vol_min,
+            'vol_max': Rt.vol_max,
+            'persistence': Rt.persistence,
+            'octaves': Rt.octaves,
+            'frequency': Rt.frequency,
+            'seed': Rt.seed,
+        }
+    )
