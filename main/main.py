@@ -38,7 +38,7 @@ parser.add_argument(
     help=f'Audio bitrate in kilobits per second (default: 256)'
 )
 parser.add_argument(
-    '-pm', '--print_metadata', action=argparse.BooleanOptionalAction, default=False,
+    '-pm', '--print_metadata', action=argparse.BooleanOptionalAction, default=True,
     help='Print audio metadata.'
 )
 
@@ -186,7 +186,7 @@ def main() -> None:
             '\n'
             'Audio metadata:\n'
             f'- Software version: {SOFTWARE_VER}\n'
-            f'- Created on: {datetime.datetime.now().strftime("%b %#d %Y, %#I:%M %p")}\n'
+            f'- Created on: {datetime.datetime.now().strftime("%b %#d, %Y, (%#I:%M %p)")}\n'
             f'- Duration: {DUR} secs\n'
             f'- Color: {COLOR}\n'
             f'- Number of layers: {NLAYER}\n'

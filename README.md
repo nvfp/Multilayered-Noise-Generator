@@ -43,7 +43,7 @@ This command launches the GUI for setting the noise pattern that dynamically adj
 * `-ff`: FFmpeg binary file path or command (default: 'ffmpeg')
 * `-o`: Output folder path (default: multilayered_noise_generator/output)
 * `-b`: Audio bitrate in kilobits per second (default: 256)
-* `-pm`: Print audio metadata (default: False)
+* `-pm`: Print audio metadata (default: True)
 
 ## Learn more
 To learn about the FFmpeg side, visit this [webpage](https://nvfp.github.io/misc/ffmpeg/index.html#multilayered_noise_generator) for more information.
