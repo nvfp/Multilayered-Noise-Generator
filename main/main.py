@@ -121,7 +121,7 @@ BITRATE = args.audio_bitrate
 if BITRATE < 32:
     error('Bitrate is too low')
 elif BITRATE > 320:
-    print('Warning: Bitrate is too high')
+    printer('Warning: Bitrate is too high')
     n_warnings += 1
 
 
