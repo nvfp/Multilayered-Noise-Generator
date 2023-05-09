@@ -62,7 +62,7 @@ By trying these solutions, you should be able to resolve the problem.
 ## Changelog
 - 1.3.0 (May 9, 2023):
     - Added `bitrate` arg
-- 1.2.0 (May 8, 2023):
+- 1.2.0 (May 9, 2023):
     - Bug fixed: The `seed` option is now used on the `anoisesrc` filter to ensure uniqueness of each noise
     - Added `print_metadata` argument
 - 1.1.0 (May 6, 2023):
