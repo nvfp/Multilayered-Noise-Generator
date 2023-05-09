@@ -1,3 +1,7 @@
+"""
+TODO:
+- Include an argument for generating stereo output.
+"""
 import argparse
 import datetime
 import os
@@ -29,6 +33,10 @@ parser.add_argument(
 )
 parser.add_argument('-ff', '--ffmpeg', default='ffmpeg', help='FFmpeg binary file path or command (default: \'ffmpeg\')')
 parser.add_argument('-o', '--output', help=f'Output folder path, default is {OUTPUT_DIR}')
+parser.add_argument(
+    '-b', '--audio_bitrate', default=256, type=int,
+    help=f'Audio bitrate in kilobits per second (default: 256)'
+)
 parser.add_argument(
     '-pm', '--print_metadata', action=argparse.BooleanOptionalAction, default=False,
     help='Print audio metadata.'
@@ -109,6 +117,14 @@ output_file_pth = os.path.join(output_dir, output_filename)
 #     raise FileExistsError(f'Output file conflict: {output_file_pth}')
 
 
+BITRATE = args.audio_bitrate
+if BITRATE < 32:
+    error('Bitrate is too low')
+elif BITRATE > 320:
+    print('Warning: Bitrate is too high')
+    n_warnings += 1
+
+
 def main() -> None:
 
     if n_warnings > 0:
@@ -131,7 +147,13 @@ def main() -> None:
     printer('Creating base noises..')
     for i in range(NLAYER):
         pth = os.path.join(TMP_DIR, f'base_noise_{str(i).zfill(3)}.m4a')
-        sp.call([FFMPEG, '-v', 'error', '-stats', '-f', 'lavfi', '-i', f'anoisesrc=d={DUR}:c={COLOR}:s={time.time()}', pth])
+        sp.call([
+            FFMPEG,
+            '-v', 'error', '-stats',
+            '-f', 'lavfi', '-i', f'anoisesrc=d={DUR}:c={COLOR}:s={time.time()}',
+            '-b:a', f'{BITRATE}k',
+            pth
+        ])
         base_noise_paths.append(pth)
         printer(f'Created base noise [{i+1}/{NLAYER}]: {pth}')
 
@@ -145,6 +167,7 @@ def main() -> None:
         '-v', 'error', '-stats',
         *input_cmd,
         '-filter_complex', f'amix=inputs={NLAYER},highpass=f={HIGHPASS},lowpass=f={LOWPASS},volume={VOLUME}{dyn_vol_filter}',
+        '-b:a', f'{BITRATE}k',
         output_file_pth
     ])
 
@@ -170,6 +193,7 @@ def main() -> None:
             f'- Highpass: {HIGHPASS} hz\n'
             f'- Lowpass: {LOWPASS} hz\n'
             f'- Volume: {VOLUME}x\n'
+            f'- Bitrate: {BITRATE}kbps\n'
             f'- Using dynamic volume: {args.dyn_vol}'
         )
         if args.dyn_vol:

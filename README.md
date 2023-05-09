@@ -42,6 +42,7 @@ This command launches the GUI for setting the noise pattern that dynamically adj
 * `-dv`: Use dynamic volume (using Perlin noise) and open the GUI to set the dynamic volume parameters (default: False)
 * `-ff`: FFmpeg binary file path or command (default: 'ffmpeg')
 * `-o`: Output folder path (default: multilayered_noise_generator/output)
+* `-b`: Audio bitrate in kilobits per second (default: 256)
 * `-pm`: Print audio metadata (default: False)
 
 ## Learn more
@@ -59,7 +60,9 @@ To learn about the FFmpeg side, visit this [webpage](https://nvfp.github.io/misc
 By trying these solutions, you should be able to resolve the problem.
 
 ## Changelog
-- 1.2.0 (May 9, 2023):
+- 1.3.0 (May 9, 2023):
+    - Added `bitrate` arg
+- 1.2.0 (May 8, 2023):
     - Bug fixed: The `seed` option is now used on the `anoisesrc` filter to ensure uniqueness of each noise
     - Added `print_metadata` argument
 - 1.1.0 (May 6, 2023):
