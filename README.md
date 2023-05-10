@@ -58,6 +58,7 @@ To learn about the FFmpeg side, visit this [webpage](https://nvfp.github.io/misc
     - Ensure that FFmpeg is installed and accessible as a command in the shell.
     - If FFmpeg is installed but not accessible, add its location to system's PATH variable.
     - Alternatively, you can reference the FFmpeg binary using the `-ff` flag when running a command. Example:
+
         ```sh
         python noise_gen -ff ~/ffmpeg/bin/ffmpeg.exe
         ```
