@@ -14,7 +14,7 @@ from carbon.noise import perlin_noise_1d
 
 def dyn_vol(DUR):
     """`DUR`: the output duration"""
-    
+
     root = tk.Tk()
     root.attributes('-fullscreen', True)
 
@@ -111,7 +111,7 @@ def dyn_vol(DUR):
     Slider(
         id='vol_max',
         min=1,
-        max=3,
+        max=1.5,  # beware of clipping
         step=0.01,
         init=Rt.vol_max,
         x=X,
@@ -183,6 +183,13 @@ def dyn_vol(DUR):
     )
     def pick_the_pattern():
         Rt.filter = gen_dyn_vol(Rt.ts)
+        
+        ## To ensure a fresh page for the next GUI, it is necessary to destroy all current GUI widgets.
+        ## These must be done before `root.destroy()`
+        Button.destroy_all()
+        Label.destroy_all()
+        Slider.destroy_all()
+
         root.destroy()
     Button(
         id='pick_the_pattern',
@@ -223,7 +230,8 @@ def dyn_vol(DUR):
         root.after(50, background)
     background()
 
-    root.bind('<Escape>', lambda e: root.destroy())
+    root.bind('<Escape>', lambda e: sys.exit(1))
+
     root.mainloop()
 
     return (
