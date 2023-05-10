@@ -1,7 +1,7 @@
 import os
 
 
-SOFTWARE_VER = '1.4.0'
+SOFTWARE_VER = '2.0.0'
 SOFTWARE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SOFTWARE_NAME = os.path.basename(SOFTWARE_DIR)
 

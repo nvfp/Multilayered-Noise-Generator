@@ -31,14 +31,14 @@ def dyn_vol(DUR):
 
     class Rt:  # runtime
         
-        nchanges = 20
-        vol_min = 0.8
+        nchanges = 30
+        vol_min = 0.65
         vol_max = 1.0
         
         ## perlin noise
-        persistence = 0.5
-        octaves = 1
-        frequency = 2
+        persistence = 0.65
+        octaves = 3
+        frequency = 5
         seed = random.randint(-10000000000, 10000000000)
 
         ts = None

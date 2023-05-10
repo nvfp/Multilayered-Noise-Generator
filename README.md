@@ -2,7 +2,7 @@
 This program generates multilayered deep audio noise using the FFmpeg audio source "anoisesrc" to generate the noise. It can create brown noise, white noise, and other types of noise that are known to help some people relax and promote a focused ambiance.
 
 ## Installation
-1. Download this repository and save it to your machine (e.g. ~/myproject/multilayered_noise_generator).
+1. Download this repository and save it to your machine (e.g. `~/projects/noise_gen`).
 2. Install dependencies:
     - [carbon](https://github.com/nvfp/carbon)
     - NumPy:
@@ -13,57 +13,66 @@ This program generates multilayered deep audio noise using the FFmpeg audio sour
 3. All set and ready to use!
 
 ## Usage
-### Try running the following:
-```sh
-python multilayered_noise_generator
-```
-This generates a 7-layer, 60-second brown noise stereo with a cutoff range of 20-432 Hz.
+- Try it:
+    ```sh
+    python noise_gen
+    ```
+    This generates a 7-layer, 60-second brown noise stereo with a cutoff range of 20-432 Hz.
 
-### You can also run:
-```sh
-python multilayered_noise_generator -d 3600 -c white -n 15 -lp 300
-```
-This command will generate one hour of deep white noise that may help promote relaxation, improve concentration, and aid in sleep.
+- More customized:
+    ```sh
+    python noise_gen -d 3600 -c violet -n 15 -hp 900 -lp 1750 -v 9 --no-stereo -b 320 -oe .mp3
+    ```
+    Output: 1-hour mp3 file at 320kbps of 15-layered mono violet noise (900-1750 Hz).
 
-### Using dynamic volume:
-```sh
-python multilayered_noise_generator -d 600 -c velvet -n 3 -dv
-```
-This command launches the GUI for setting the noise pattern that dynamically adjusts the volume, creating a captivating ambience.
-![Dynamic volume demo gif](media/dv-demo.gif)
+- Using dynamic volume:
+    ```sh
+    python noise_gen -dv
+    ```
+    This command launches the GUI for setting the volume pattern that dynamically adjusts the volume, creating a captivating ambience.
+    ![Dynamic volume demo gif](media/dv-demo.gif)
 
-### Here are the available command line options for customizing the generated noise:
-* `-d`: Track length in seconds (default: `60`)
-* `-c`: Noise color options: white, pink, brown, blue, violet, and velvet (default: `'brown'`)
-* `-n`: Number of layers (default: `7`)
-* `-hp`: Highpass frequency value (default: `20` Hz)
-* `-lp`: Lowpass frequency value (default: `432` Hz)
-* `-vol`: Number of volume folds (default: number of layers)
-* `-dv`: Use dynamic volume (using Perlin noise) and open the GUI to set the dynamic volume parameters (default: `False`)
-* `-dvs`: For stereo output, use this option to select two noise patterns. If set to False, both channels will share the same pattern (default: `True`).
-* `-s`: Enable stereo mode (True) for stereo output, or disable it (False) for mono output (default: `True`)
-* `-ff`: FFmpeg binary file path or command (default: `'ffmpeg'`)
-* `-o`: Output folder path (default: multilayered_noise_generator/output)
-* `-of`: Specify a custom output filename. If not specified, the default format will be used
-* `-ext`: Specify the output extension (default: `'.m4a'`)
-* `-b`: Audio bitrate in kilobits per second (default: `256`)
-* `-pm`: Print audio metadata (default: `True`)
+- Below are the options available to customize the generated noise:
+    - `-d`: Track length in seconds (default: `60`)
+    - `-c`: Noise color options: white, pink, brown, blue, violet, and velvet (default: `brown`)
+    - `-n`: Number of layers (default: `7`)
+    - `-hp`: Highpass frequency value (default: `20` Hz)
+    - `-lp`: Lowpass frequency value (default: `432` Hz)
+    - `-v`: Volume amplification: to set the output loudness and address clipping issues (default: half of the number of layers)
+    - `-s`: Enable stereo mode (True) for stereo output, or disable it (False) for mono output. (default: `True`)
+    - `-dv`: Enable dynamic noise volume by launching a GUI that allows you to adjust the dynamicness parameters (default: `False`)
+    - `-dvd`: Use this option with `-dv` and `-s` to select two volume patterns. If set to `False`, both channels will share the same pattern. (default: `True`)
+    - `-norm`: Apply the `dynaudnorm` filter to normalize the output audio, ensuring optimal amplitude and preventing clipping. (default: `False`)
+    - `-b`: Audio bitrate in kilobits per second (default: `256`)
+    - `-od`: Output folder path (default: `noise_gen/output`)
+    - `-on`: Specify a custom output filename. If not specified, the default format will be used.
+    - `-oe`: Specify the output extension (default: `.m4a`)
+    - `-p`: Print audio metadata (default: `True`)
+    - `-ff`: FFmpeg binary file path or command (default: `ffmpeg`)
 
 ## Learn more
 To learn about the FFmpeg side, visit this [webpage](https://nvfp.github.io/misc/ffmpeg/index.html#multilayered_noise_generator) for more information.
 
 ## Troubleshooting
-#### If you encounter the error message "multilayered_noise_generator: error: ffmpeg not found or not a recognized command (ffmpeg)", consider the following:
-- Ensure that FFmpeg is installed on your machine and is accessible as a command in the shell.
-- If FFmpeg is installed but not accessible, add its location to your system's PATH variable.
-- Alternatively, you can reference the FFmpeg binary using the `-ff` flag when running a command. For example:
-
-    ```sh
-    python multilayered_noise_generator -ff ~/ffmpeg/bin/ffmpeg.exe
-    ```
-By trying these solutions, you should be able to resolve the problem.
+- If you encounter the error `noise_gen: ERROR: ffmpeg not found or not a recognized command (ffmpeg)`, try these:
+    - Ensure that FFmpeg is installed and accessible as a command in the shell.
+    - If FFmpeg is installed but not accessible, add its location to system's PATH variable.
+    - Alternatively, you can reference the FFmpeg binary using the `-ff` flag when running a command. Example:
+        ```sh
+        python noise_gen -ff ~/ffmpeg/bin/ffmpeg.exe
+        ```
 
 ## Changelog
+- v2.0.0 (May 10, 2023):
+    - Added `--normalize` arg: To normalize the output audio and ensure optimal amplitude
+    - Updated `--volume` default value to `half the number of layers` to prevent clipping
+    - Updated the optional argument from `-vol` to `-v`
+    - Updated the optional argument from `-dvs` to `-dvd` and `--dyn_vol_stereo` to `--dyn_vol_dual`
+    - Updated the optional argument from `--audio_bitrate` to `--bitrate`
+    - Updated the optional argument from `-o` to `-od` and `--output` to `--output_dir`
+    - Updated the optional argument from `-of` to `-on` and `--output_filename` to `--output_name`
+    - Updated the optional argument from `-ext` to `-oe` and `--output_extension` to `--output_ext`
+    - Updated the optional argument from `-pm` to `-p` and `--print_metadata` to `--print`
 - 1.4.0 (May 10, 2023):
     - Added `stereo` arg: Enable or disable stereo audio output
     - Added `stereo_dyn_vol` arg: Enable or disable dynamic volume for both left and right audio channels
